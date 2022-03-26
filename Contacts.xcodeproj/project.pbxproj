@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		101DFC3927EF473B001703CE /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101DFC3827EF473B001703CE /* NetworkHandler.swift */; };
+		101DFC3B27EF577F001703CE /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101DFC3A27EF577F001703CE /* JSONParser.swift */; };
 		10DF533127EF388D00689C36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DF533027EF388D00689C36 /* AppDelegate.swift */; };
 		10DF533327EF388D00689C36 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DF533227EF388D00689C36 /* SceneDelegate.swift */; };
 		10DF533527EF388D00689C36 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DF533427EF388D00689C36 /* ViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		101DFC3827EF473B001703CE /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
+		101DFC3A27EF577F001703CE /* JSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		10DF532D27EF388D00689C36 /* Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Contacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10DF533027EF388D00689C36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10DF533227EF388D00689C36 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +43,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		101DFC3727EF4726001703CE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				101DFC3827EF473B001703CE /* NetworkHandler.swift */,
+				101DFC3A27EF577F001703CE /* JSONParser.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		10DF532427EF388D00689C36 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +71,7 @@
 		10DF532F27EF388D00689C36 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				101DFC3727EF4726001703CE /* Model */,
 				10DF533027EF388D00689C36 /* AppDelegate.swift */,
 				10DF533227EF388D00689C36 /* SceneDelegate.swift */,
 				10DF533427EF388D00689C36 /* ViewController.swift */,
@@ -143,7 +157,9 @@
 			files = (
 				10DF533B27EF388D00689C36 /* Contacts.xcdatamodeld in Sources */,
 				10DF533527EF388D00689C36 /* ViewController.swift in Sources */,
+				101DFC3B27EF577F001703CE /* JSONParser.swift in Sources */,
 				10DF533127EF388D00689C36 /* AppDelegate.swift in Sources */,
+				101DFC3927EF473B001703CE /* NetworkHandler.swift in Sources */,
 				10DF533327EF388D00689C36 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

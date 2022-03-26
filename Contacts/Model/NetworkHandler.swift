@@ -8,6 +8,7 @@
 import Foundation
 class NetworkHandler{
     let parser = JSONParser()
+    let manager = CoreDataManager()
     var contacts:[Contacts]?
     enum Error:Swift.Error{
         case unknownAPIResponse
@@ -25,9 +26,13 @@ class NetworkHandler{
                         return
                     }
                 self.contacts = self.parser.parseJSON(from: data)
+                self.loadCoreData()
                 }.resume()
         }
        
+    }
+    func loadCoreData(){
+        self.manager.save(data:self.contacts!)
     }
 
 }

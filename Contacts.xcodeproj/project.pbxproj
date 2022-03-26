@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		101DFC3927EF473B001703CE /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101DFC3827EF473B001703CE /* NetworkHandler.swift */; };
 		101DFC3B27EF577F001703CE /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101DFC3A27EF577F001703CE /* JSONParser.swift */; };
+		101DFC3D27EF760F001703CE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101DFC3C27EF760F001703CE /* CoreDataManager.swift */; };
 		10DF533127EF388D00689C36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DF533027EF388D00689C36 /* AppDelegate.swift */; };
 		10DF533327EF388D00689C36 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DF533227EF388D00689C36 /* SceneDelegate.swift */; };
 		10DF533527EF388D00689C36 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DF533427EF388D00689C36 /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		101DFC3827EF473B001703CE /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		101DFC3A27EF577F001703CE /* JSONParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
+		101DFC3C27EF760F001703CE /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		10DF532D27EF388D00689C36 /* Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Contacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10DF533027EF388D00689C36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10DF533227EF388D00689C36 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 			children = (
 				101DFC3827EF473B001703CE /* NetworkHandler.swift */,
 				101DFC3A27EF577F001703CE /* JSONParser.swift */,
+				101DFC3C27EF760F001703CE /* CoreDataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 				101DFC3B27EF577F001703CE /* JSONParser.swift in Sources */,
 				10DF533127EF388D00689C36 /* AppDelegate.swift in Sources */,
 				101DFC3927EF473B001703CE /* NetworkHandler.swift in Sources */,
+				101DFC3D27EF760F001703CE /* CoreDataManager.swift in Sources */,
 				10DF533327EF388D00689C36 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

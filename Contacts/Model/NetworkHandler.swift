@@ -8,10 +8,11 @@
 import Foundation
 protocol DataDowonloadedDelegate{
     func loadData(data:[Contacts]?)
+   
 }
 class NetworkHandler{
     let parser = JSONParser()
-    
+    let session = URLSession.init(configuration: .default)
     var delegate:DataDowonloadedDelegate?
     enum Error:Swift.Error{
         case unknownAPIResponse
@@ -24,7 +25,7 @@ class NetworkHandler{
         
         if let url = url{
         let request = URLRequest(url: url)
-        let session = URLSession.init(configuration: .default)
+       
             session.dataTask(with: request) { data, response, error in
                     guard let data = data else {
                         return
@@ -35,6 +36,21 @@ class NetworkHandler{
         }
        
     }
+    func downloadProfileImage(from url:URL?,completionHandler:@escaping (Data) ->Void){
+        guard let url = url else {
+            return
+        }
+
+       session.dataTask(with: URLRequest(url:url)){ data, response, error in
+            guard let data = data,error == nil else {
+                return
+            }
+            completionHandler(data)
+
+        }.resume()
+       
+        }
+    
    
 
 }

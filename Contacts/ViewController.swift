@@ -36,6 +36,13 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as! ContactTableViewCell
+        dataprovider!.downloadImage(image: contentType![indexPath.section].contact![indexPath.row].photo!) { data in
+            DispatchQueue.main.sync {
+                cell.profile.image =   UIImage(data: data) ?? UIImage(named: "list-no-thb")
+               
+            }}
+       
+       
         cell.name.text = contentType![indexPath.section].contact![indexPath.row].name!
         cell.company.text = contentType![indexPath.section].contact![indexPath.row].company!
         return cell

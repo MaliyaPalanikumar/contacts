@@ -16,9 +16,13 @@ class ContactTableViewCell:UITableViewCell{
         super.init(coder: coder)
     }
     override func layoutSubviews() {
+        super.layoutSubviews()
         profile.layer.cornerRadius = profile.frame.size.width / 2
         profile.clipsToBounds = true
-        profile.layer.borderWidth = 1.0
+        profile.layer.borderWidth = 3.0
+        profile.layer.masksToBounds = true
+        profile.layer.borderColor = UIColor.clear.cgColor
+        
     }
    
 }

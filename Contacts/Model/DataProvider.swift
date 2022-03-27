@@ -68,11 +68,19 @@ class DataProvider{
            
             contactType.append(ContactListType(contact: contacts!, count: contacts!.count))
         }
+        
         delegate.loadTableView(contacts:contactType)
     }
+    func downloadImage(image:URL,completionHandler:@escaping (Data) -> Void){
+        
+        networkhandler.downloadProfileImage(from: image) { data in
+           completionHandler(data)
+        }
+        
+}
 }
 extension DataProvider:DataDowonloadedDelegate{
-    
+   
     func loadData(data:[Contacts]?) {
         guard let contact = data else{
             return
@@ -80,6 +88,7 @@ extension DataProvider:DataDowonloadedDelegate{
         //self.loadCoreData(data:contact)
         self.sortedContacts(contact:contact)
     }
+    
 }
 extension DataProvider{
     func loadCoreData(data:[Contacts]?){
@@ -88,4 +97,5 @@ extension DataProvider{
         }
        self.manager.save(data:data)
     }
+    
 }

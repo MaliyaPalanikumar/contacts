@@ -37,7 +37,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as! ContactTableViewCell
         dataprovider!.downloadImage(image: contentType![indexPath.section].contact![indexPath.row].photo!) { data in
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 cell.profile.image =   UIImage(data: data) ?? UIImage(named: "list-no-thb")
                
             }}
@@ -55,30 +55,37 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
 extension ViewController:DataProviderDelegate{
     func loadTableView(contacts:[ContactListType]){
        
-        removeBlurEffect()
-        self.contentType = contacts
-        DispatchQueue.main.sync {
+       
+        DispatchQueue.main.async {
+            self.removeBlurEffect()
+            self.contentType = contacts
             self.tableview.delegate = self
             self.tableview.dataSource = self
             self.tableview.reloadData()
         }
        
+        
+       
     }
     func addBlurEffect(){
-        let blureffect = UIBlurEffect(style: .light)
+       let blureffect = UIBlurEffect(style: .light)
         blurVisualEffect = UIVisualEffectView(effect: blureffect)
-        blurVisualEffect?.frame = self.view.bounds
+        blurVisualEffect?.frame = self.tableview.bounds
         blurVisualEffect?.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        self.view.addSubview(blurVisualEffect!)
+        self.tableview.addSubview(blurVisualEffect!)
         activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator!.startAnimating()
-        self.view.addSubview(activityIndicator!)
+        activityIndicator?.center = self.tableview.center
+        self.tableview.addSubview(activityIndicator!)
     }
     func removeBlurEffect(){
-        DispatchQueue.main.sync {
+        DispatchQueue.main.async {
             self.blurVisualEffect?.removeFromSuperview()
+            self.activityIndicator?.stopAnimating()
             self.activityIndicator?.removeFromSuperview()
         }
+           
+        
         
     }
 }

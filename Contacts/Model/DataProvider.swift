@@ -32,12 +32,13 @@ class DataProvider{
         networkhandler.delegate = self
     }
     func getContact() {
-       // if let contact = coredataManager.fetch(){
-       //     self.contact = contact
-       // }
-        //else{
+        if let contact = coredataManager.fetch(){
+          self.contact = contact
+          self.sortedContacts(contact:contact)
+       }
+        else{
             networkhandler.loadData()
-       // }
+       }
     }
     func sortedContacts(contact:[Contacts]?){
         self.contact = contact?.sorted(by: {
@@ -85,7 +86,7 @@ extension DataProvider:DataDowonloadedDelegate{
         guard let contact = data else{
             return
         }
-        //self.loadCoreData(data:contact)
+        self.loadCoreData(data:contact)
         self.sortedContacts(contact:contact)
     }
     

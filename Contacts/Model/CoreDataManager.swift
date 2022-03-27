@@ -14,10 +14,11 @@ class CoreDataManager{
             return UIApplication.shared.delegate as? AppDelegate
         
         }
-          
+   
     var managedContext:NSManagedObjectContext{
     return appdelegate!.persistentContainer.viewContext
     }
+    var contact: [NSManagedObject] = []
     func save(data:[Contacts]){
 
        
@@ -27,7 +28,7 @@ class CoreDataManager{
             let individual = NSManagedObject(entity: entity, insertInto: managedContext)
             individual.setValue(contact.name, forKey: "name")
             individual.setValue(contact.age, forKey: "age")
-           // individual.setValue(contact.photo, forKey: "photo")
+            individual.setValue(contact.photo, forKey: "photo")
             individual.setValue(contact.phone, forKey: "phone")
             individual.setValue(contact.company, forKey: "company")
             individual.setValue(contact.id, forKey: "id")
@@ -42,15 +43,31 @@ class CoreDataManager{
         }
     }
     func fetch() ->[Contacts]?{
-        var contact:[Contacts]?
+        var fetchResult = [Contacts]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Contact")
         do{
-            contact = try managedContext.fetch(fetchRequest) as! [Contacts]
+            self.contact = try managedContext.fetch(fetchRequest)
             
+            guard contact.count > 0 else{
+                return nil
+            }
+            for contact in contact {
+                fetchResult.append(Contacts(
+                 name: contact.value(forKey: "name") as? String,
+                 phone: contact.value(forKey: "phone")  as? String,
+                 email: contact.value(forKey: "email") as? String,
+                 address: contact.value(forKey: "address") as? String,
+                 zip: contact.value(forKey: "zip") as? String,
+                 country: contact.value(forKey: "country") as? String,
+                 id: contact.value(forKey: "id") as? Int,
+                 company: contact.value(forKey: "company") as? String,
+                 photo: contact.value(forKey: "photo") as? URL,
+                 age: contact.value(forKey: "age") as? Int))
+            }
         }
         catch let error as  NSError{
             print("Unable to fetch the record from the Core Data\(error.userInfo)")
         }
-        return contact
+        return fetchResult
     }
 }

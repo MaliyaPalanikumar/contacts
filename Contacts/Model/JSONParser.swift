@@ -7,7 +7,8 @@
 
 import Foundation
 import UIKit
-struct Contacts:Decodable,Equatable{
+import CoreData
+struct Contacts:Decodable{
     let name:String?
     let phone:String?
     let email:String?

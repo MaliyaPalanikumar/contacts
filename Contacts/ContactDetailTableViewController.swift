@@ -14,6 +14,7 @@ struct ContactDetailTableViewController:View{
     var contact:Contacts?
     var image:UIImage?
     var dataprovider:DataProvider?
+    @Environment(\.presentationMode) private var presentationMode
     var body: some View{
        
         List{
@@ -32,17 +33,42 @@ struct ContactDetailTableViewController:View{
             }
             Section {
                 NumberCell(contact: contact, field: CellType.address)
-                
             } header: {
                 Text("Address")
             }
+           
+            HStack(alignment: .bottom, spacing: 30){
+                Spacer()
+                Button(action: {
+                    dataprovider!.makeCall(number:contact?.phone)
+                }){
+                    Image(uiImage: UIImage(named: "btab_icn_phone")!)
+                }
+                Spacer()
+                Button(action: {
+                    dataprovider!.sendMail(email:contact?.email)
+                }){
+                    Image(uiImage: UIImage(named: "btab_icn_mail")!)
+                }
+                Spacer()
+                Button(action: {
+                    dataprovider?.deleteContact(contact: contact!)
+                    self.presentationMode.wrappedValue.dismiss()
+                    
+                }){
+                    Image(uiImage: UIImage(named: "btab_icn_delete")!)
+                }
+                Spacer()
+           }.frame(width: 200, height: 10, alignment: .bottom)
+            }
 
+            
+    }
 
 
         }
-    }
    
-}
+
 struct BasicDetail:View{
     var contact:Contacts?
     var image:UIImage?

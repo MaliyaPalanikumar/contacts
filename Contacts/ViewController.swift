@@ -22,21 +22,21 @@ class ViewController: UIViewController {
         dataprovider = DataProvider(viewController:self)
         dataprovider?.getContact()
         addBlurEffect()
-       
+        
     }
 
 
 }
 extension ViewController:UITableViewDelegate,UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
-        (contentType?.count)!
+        (contentType?.count)! - 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         contentType![section].sectionCount
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as! ContactTableViewCell
+        let cell = tableview.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as! ContactTableViewCell
         dataprovider!.downloadImage(image: contentType![indexPath.section].contact![indexPath.row].photo!) { data in
             DispatchQueue.main.async {
                 cell.profile.image =   UIImage(data: data) ?? UIImage(named: "list-no-thb")
@@ -49,7 +49,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         return cell
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return dataprovider!.sectionHeaders[section]
+        return DataProvider.sectionHeaders[section]
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var detailedImage:UIImage?

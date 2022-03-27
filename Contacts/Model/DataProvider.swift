@@ -22,7 +22,7 @@ class DataProvider{
     
     let manager = CoreDataManager()
     var contact:[Contacts]?
-    var sectionHeaders = [String]()
+    static var sectionHeaders = [String]()
     var contactType = [ContactListType]()
     let coredataManager = CoreDataManager()
     let networkhandler = NetworkHandler()
@@ -41,28 +41,31 @@ class DataProvider{
        }
     }
     func sortedContacts(contact:[Contacts]?){
+        
         self.contact = contact?.sorted(by: {
             $0.name?.localizedLowercase ?? "" < $1.name?.localizedLowercase ?? ""
         })
         if contact!.count > 0{
-            sectionHeaders.append("#")
+            DataProvider.sectionHeaders.append("#")
         }
         for contacts in self.contact!{
             if contacts.name != nil{
                 let firstSymbol = contacts.name!.first
-                if !self.sectionHeaders.contains(String(firstSymbol!)){
-                    sectionHeaders.append(String(firstSymbol!))
+                if !DataProvider.sectionHeaders.contains(String(firstSymbol!)){
+                    DataProvider.sectionHeaders.append(String(firstSymbol!))
                 }
             }
             else{
                let firstSymbol = ""
-                if !self.sectionHeaders.contains(String(firstSymbol)){
-                    sectionHeaders.append(String(firstSymbol))
+                if !DataProvider.sectionHeaders.contains(String(firstSymbol)){
+                    DataProvider.sectionHeaders.append(String(firstSymbol))
                 }
             }
             
         }
-        for firstLetter in sectionHeaders{
+        contactType.removeAll()
+        for firstLetter in DataProvider.sectionHeaders{
+            
             let contacts = contact?.filter({
                 String($0.name!.first!) == firstLetter
              })
@@ -98,5 +101,24 @@ extension DataProvider{
         }
        self.manager.save(data:data)
     }
+    func deleteContact(contact:Contacts){
+        self.manager.delete(id:contact.id!)
+        let mutablearray = NSMutableArray(array: self.contact!)
+        for contacts in mutablearray{
+            if contacts as! Contacts == contact{
+                mutablearray.remove(contacts)
+              
+            }
+        }
+        self.sortedContacts(contact: mutablearray as? [Contacts])
+    }
     
+}
+extension DataProvider{
+    func sendMail(email:String?){
+        
+    }
+    func makeCall(number:String?){
+        
+    }
 }

@@ -66,7 +66,7 @@ class CoreDataManager{
                  company: contact.value(forKey: "company") as? String,
                  photo: contact.value(forKey: "photo") as? URL,
                  age: contact.value(forKey: "age") as? Int))
-                print(contact.value(forKey: "email") as? String)
+                
             }
             
         }
@@ -74,5 +74,19 @@ class CoreDataManager{
             print("Unable to fetch the record from the Core Data\(error.userInfo)")
         }
         return fetchResult
+    }
+    func delete(id:Int){
+        let fetchRequest:NSFetchRequest<Contact> = Contact.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id = %d", id)
+        do{
+            let result = try managedContext.fetch(fetchRequest)
+                for result in result {
+                    managedContext.delete(result)
+                }
+
+        }
+        catch let error as NSError{
+            print("Unable to delete\(error.userInfo)")
+        }
     }
 }

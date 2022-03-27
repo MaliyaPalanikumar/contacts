@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 class ContactListType{
     var contact:[Contacts]?
     var sectionCount:Int
@@ -119,6 +120,9 @@ extension DataProvider{
         
     }
     func makeCall(number:String?){
-        
+        if let url = URL(string: "tel://\(number!)"),
+            UIApplication.shared.canOpenURL(url){
+            UIApplication.shared.open(url)
+        }
     }
 }

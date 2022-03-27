@@ -36,17 +36,16 @@ struct ContactDetailTableViewController:View{
             } header: {
                 Text("Address")
             }
-           
-            HStack(alignment: .bottom, spacing: 30){
+            Group{
                 Spacer()
                 Button(action: {
-                    dataprovider!.makeCall(number:contact?.phone)
+                    dataprovider?.makeCall(number:contact?.phone)
                 }){
                     Image(uiImage: UIImage(named: "btab_icn_phone")!)
                 }
                 Spacer()
                 Button(action: {
-                    dataprovider!.sendMail(email:contact?.email)
+                    dataprovider?.sendMail(email:contact?.email)
                 }){
                     Image(uiImage: UIImage(named: "btab_icn_mail")!)
                 }
@@ -59,9 +58,10 @@ struct ContactDetailTableViewController:View{
                     Image(uiImage: UIImage(named: "btab_icn_delete")!)
                 }
                 Spacer()
-           }.frame(width: 200, height: 10, alignment: .bottom)
-            }
 
+            }
+           
+               
             
     }
 
@@ -109,4 +109,5 @@ struct ContactDetailTableViewPreview:PreviewProvider{
     static var previews: some View{
         ContactDetailTableViewController()
     }
+}
 }

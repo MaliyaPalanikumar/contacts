@@ -6,3 +6,81 @@
 //
 
 import Foundation
+import SwiftUI
+enum CellType{
+    case phone,email,address
+}
+struct ContactDetailTableViewController:View{
+    var contact:Contacts?
+    var image:UIImage?
+    var dataprovider:DataProvider?
+    var body: some View{
+       
+        List{
+            BasicDetail(contact: contact, image: image)
+            Section {
+               
+                NumberCell(contact: contact, field: CellType.phone)
+            } header: {
+                Text("Phone")
+            }
+            Section {
+                
+                NumberCell(contact: contact, field: CellType.email)
+            } header: {
+                Text("Email")
+            }
+            Section {
+                NumberCell(contact: contact, field: CellType.address)
+                
+            } header: {
+                Text("Address")
+            }
+
+
+
+        }
+    }
+   
+}
+struct BasicDetail:View{
+    var contact:Contacts?
+    var image:UIImage?
+    var body: some View{
+        if let contact = contact {
+            HStack{
+                Image(uiImage: image!)
+
+            VStack{
+                Text(contact.name!)
+                Text(contact.company!)
+            }
+            }
+        }
+        
+    }
+    
+}
+struct NumberCell:View{
+    var contact:Contacts?
+    var field:CellType
+    var body: some View{
+        switch(field){
+        case CellType.phone:
+            Text((contact?.phone)!)
+        case CellType.email:
+            Text((contact?.email) ?? "No Email")
+        case CellType.address:
+            Text((contact?.country)!)
+            Text((contact?.zip)!)
+           
+        }
+        
+    }
+}
+
+struct ContactDetailTableViewPreview:PreviewProvider{
+    static var previews: some View{
+        ContactDetailTableViewController()
+    }
+}

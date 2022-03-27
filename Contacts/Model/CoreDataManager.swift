@@ -34,6 +34,9 @@ class CoreDataManager{
             individual.setValue(contact.id, forKey: "id")
             individual.setValue(contact.country, forKey: "country")
             individual.setValue(contact.zip, forKey: "zip")
+            individual.setValue(contact.email, forKey: "email")
+            individual.setValue(contact.address, forKey: "address")
+            
             do{
                 try managedContext.save()
             }
@@ -63,7 +66,9 @@ class CoreDataManager{
                  company: contact.value(forKey: "company") as? String,
                  photo: contact.value(forKey: "photo") as? URL,
                  age: contact.value(forKey: "age") as? Int))
+                print(contact.value(forKey: "email") as? String)
             }
+            
         }
         catch let error as  NSError{
             print("Unable to fetch the record from the Core Data\(error.userInfo)")

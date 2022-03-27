@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class ViewController: UIViewController {
     
@@ -49,6 +50,17 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return dataprovider!.sectionHeaders[section]
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var detailedImage:UIImage?
+        dataprovider!.downloadImage(image: contentType![indexPath.section].contact![indexPath.row].photo!) { data in
+            DispatchQueue.main.async {
+               detailedImage = UIImage(data: data) ?? UIImage(named: "list-no-thb")
+                let detailedViewController = UIHostingController(rootView: ContactDetailTableViewController(contact: self.contentType![indexPath.section].contact![indexPath.row],image: detailedImage!,dataprovider:self.dataprovider))
+               
+                self.navigationController?.pushViewController(detailedViewController, animated: true)
+            }}
+       
     }
    
 }

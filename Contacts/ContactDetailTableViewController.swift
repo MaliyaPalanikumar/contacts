@@ -36,7 +36,8 @@ struct ContactDetailTableViewController:View{
             } header: {
                 Text("Address")
             }
-            Group{
+        }
+            HStack{
                 Spacer()
                 Button(action: {
                     dataprovider?.makeCall(number:contact?.phone)
@@ -59,7 +60,7 @@ struct ContactDetailTableViewController:View{
                 }
                 Spacer()
 
-            }
+            
            
                
             

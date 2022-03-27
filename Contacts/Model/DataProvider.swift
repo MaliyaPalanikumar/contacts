@@ -17,6 +17,7 @@ class ContactListType{
 }
 protocol DataProviderDelegate{
     func loadTableView(contacts:[ContactListType])
+    func sendMail(to recipient:String?)
 }
 class DataProvider{
    
@@ -117,7 +118,7 @@ extension DataProvider{
 }
 extension DataProvider{
     func sendMail(email:String?){
-        
+        delegate.sendMail(to:email)
     }
     func makeCall(number:String?){
         if let url = URL(string: "tel://\(number!)"),

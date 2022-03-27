@@ -7,7 +7,7 @@
 
 import UIKit
 import SwiftUI
-
+import MessageUI
 class ViewController: UIViewController {
     
     var contact:[Contacts]?
@@ -100,5 +100,30 @@ extension ViewController:DataProviderDelegate{
         
         
     }
+}
+extension ViewController:MFMailComposeViewControllerDelegate{
+    func sendMail(to recipient:String?)
+    {
+        
+    let mailComposeVC = MFMailComposeViewController()
+        if !MFMailComposeViewController.canSendMail(){
+            let alert = UIAlertController(title: "Mail Box not Configured", message: "Please,configure your mail box", preferredStyle: .alert)
+            alert.addAction(UIAlertAction.init(title: "okay", style: .cancel, handler: {
+                alert in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        mailComposeVC.mailComposeDelegate = self
+        mailComposeVC.setToRecipients([recipient!])
+        mailComposeVC.setSubject("Greeting from")
+        mailComposeVC.setMessageBody("Hi", isHTML: false)
+        self.present(mailComposeVC, animated: true, completion: nil)
+    }
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 

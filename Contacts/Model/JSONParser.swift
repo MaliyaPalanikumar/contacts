@@ -2,19 +2,19 @@
 //  JSONParser.swift
 //  Contacts
 //
-//  Created by 1606085 on 26/03/22.
+//  Created by Maliya on 26/03/22.
 //
 
 import Foundation
 import UIKit
-struct Contacts:Decodable{
-    let name:String
+struct Contacts:Decodable,Equatable{
+    let name:String?
     let phone:String?
     let email:String?
     let address:String?
     let zip:String?
     let country:String?
-    let id:Int
+    let id:Int?
     let company:String?
     let photo:URL?
     let age:Int?

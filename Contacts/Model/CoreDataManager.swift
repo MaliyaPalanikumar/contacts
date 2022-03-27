@@ -2,19 +2,25 @@
 //  CoreDataManager.swift
 //  Contacts
 //
-//  Created by 1606085 on 26/03/22.
+//  Created by Maliya on 26/03/22.
 //
 
 import Foundation
 import CoreData
 import UIKit
 class CoreDataManager{
-    
-    func save(data:[Contacts]){
-        guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else{
-            return
+    var appdelegate:AppDelegate?{
+        
+            return UIApplication.shared.delegate as? AppDelegate
+        
         }
-        let managedContext = appdelegate.persistentContainer.viewContext
+          
+    var managedContext:NSManagedObjectContext{
+    return appdelegate!.persistentContainer.viewContext
+    }
+    func save(data:[Contacts]){
+
+       
         let entity = NSEntityDescription.entity(forEntityName: "Contact", in: managedContext)!
         
         for contact in data{
@@ -34,5 +40,17 @@ class CoreDataManager{
                 print("Unable to save the data \(error.userInfo)")
             }
         }
+    }
+    func fetch() ->[Contacts]?{
+        var contact:[Contacts]?
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Contact")
+        do{
+            contact = try managedContext.fetch(fetchRequest) as! [Contacts]
+            
+        }
+        catch let error as  NSError{
+            print("Unable to fetch the record from the Core Data\(error.userInfo)")
+        }
+        return contact
     }
 }

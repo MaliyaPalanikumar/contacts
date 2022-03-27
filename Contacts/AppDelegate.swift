@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Contacts
 //
-//  Created by 1606085 on 26/03/22.
+//  Created by Maliya on 26/03/22.
 //
 
 import UIKit
@@ -15,9 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let newtork = NetworkHandler()
-        newtork.loadData()
-
         return true
     }
 

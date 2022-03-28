@@ -41,6 +41,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as! ContactTableViewCell
+        cell.delegate = self
         dataprovider!.downloadImage(image: contentType![indexPath.section].contact![indexPath.row].photo!) { data in
             DispatchQueue.main.async {
                 cell.profile.image =   UIImage(data: data) ?? UIImage(named: "list-no-thb")
@@ -161,4 +162,11 @@ extension ViewController:UISearchBarDelegate{
         dataprovider?.getContact()
         tableview.reloadData()
     }
+}
+extension ViewController:ContactTableViewDelegate{
+    func performPhotoView(cell:ContactTableViewCell) {
+        print("I am here \(cell.company.text)")
+    }
+    
+    
 }

@@ -26,7 +26,8 @@ class ViewController: UIViewController {
         dataprovider?.getContact()
         searchbar.delegate = self
         addBlurEffect()
-        
+        let longrecognizer = UILongPressGestureRecognizer(target: self, action: #selector(reorderCell))
+        self.tableview.addGestureRecognizer(longrecognizer)
         
     }
 
@@ -183,4 +184,19 @@ extension ViewController:ContactTableViewDelegate,UIImagePickerControllerDelegat
         self.dismiss(animated: true, completion: nil)
     }
     
+}
+extension ViewController{
+    @objc func reorderCell(sender:UILongPressGestureRecognizer){
+        self.tableview.isEditing = !isEditing
+    }
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let itemCell = self.contentType![sourceIndexPath.section].contact![sourceIndexPath.row]
+        contact?.remove(at: sourceIndexPath.row)
+        contact?.insert(itemCell, at: destinationIndexPath.row)
+       // dataprovider?.loadData(data: contact)
+        self.tableview.isEditing = false
+    }
 }

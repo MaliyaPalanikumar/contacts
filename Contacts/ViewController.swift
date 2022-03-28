@@ -15,13 +15,17 @@ class ViewController: UIViewController {
     var blurVisualEffect:UIVisualEffectView?
     var activityIndicator:UIActivityIndicatorView?
     var dataprovider:DataProvider?
+    var filterType = [Contacts]()
 
+    @IBOutlet weak var searchbar: UISearchBar!
     @IBOutlet var tableview: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         dataprovider = DataProvider(viewController:self)
         dataprovider?.getContact()
+        searchbar.delegate = self
         addBlurEffect()
+        
         
     }
 
@@ -126,4 +130,35 @@ extension ViewController:MFMailComposeViewControllerDelegate{
     }
     
 }
-
+extension ViewController:UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        let searchText = searchBar.text?.lowercased()
+        if searchText?.count == 0{
+            searchBar.text = ""
+            searchBar.resignFirstResponder()
+            dataprovider?.getContact()
+        }
+        filterType.removeAll()
+        for contact in contentType!{
+            let intermediate = contact.contact?.filter({
+                $0.name?.lowercased().contains(searchText!) as! Bool
+            })
+            filterType.append(contentsOf: intermediate!)
+        }
+        dataprovider?.sortedContacts(contact: filterType)
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+       
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        dataprovider?.getContact()
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        dataprovider?.getContact()
+        tableview.reloadData()
+    }
+}

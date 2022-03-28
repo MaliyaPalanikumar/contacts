@@ -37,14 +37,15 @@ struct Contacts:Decodable,Equatable{
 class JSONParser{
 
     func parseJSON(from data: Data) -> [Contacts]{
-        var result:[Contacts]?
+        var result=[Contacts]()
         do{
-            result = try JSONDecoder().decode([Contacts].self, from: data)
+            let temp = try JSONDecoder().decode([Contacts].self, from: data)
+            result.append(contentsOf: temp)
                 }
         catch{
             print(error.localizedDescription)
         }
-        return result!
+        return result
     }
     
     

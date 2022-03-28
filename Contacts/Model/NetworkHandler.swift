@@ -13,29 +13,33 @@ protocol DataDowonloadedDelegate{
 class NetworkHandler{
     let parser = JSONParser()
     let session = URLSession.init(configuration: .default)
+    let queue = OperationQueue()
     var delegate:DataDowonloadedDelegate?
     enum Error:Swift.Error{
         case unknownAPIResponse
         case generic
     }
-    let url = URL(string: "https://shielded-ridge-19050.herokuapp.com/api/?offset=10")
+    let url = URL(string: "https://shielded-ridge-19050.herokuapp.com/api/?offset=49")
    
    
     func loadData(){
-        
-        if let url = url{
-        let request = URLRequest(url: url)
-       
-            session.dataTask(with: request) { data, response, error in
-                    guard let data = data else {
-                        return
+        queue.addOperation { [self] in
+            if let url = url{
+            let request = URLRequest(url: url)
+                for i in 0...50{
+                let task = session.dataTask(with: request) { data, response, error in
+                        guard let data = data else {
+                            return
+                        }
+                     
+                    self.delegate?.loadData(data:self.parser.parseJSON(from: data))
                     }
-                 
-                self.delegate?.loadData(data:self.parser.parseJSON(from: data))
-                }.resume()
+                task.resume()
+                }
         }
-       
+        }
     }
+       
     func downloadProfileImage(from url:URL?,completionHandler:@escaping (Data) ->Void){
         guard let url = url else {
             return

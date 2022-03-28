@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var activityIndicator:UIActivityIndicatorView?
     var dataprovider:DataProvider?
     var filterType = [Contacts]()
+    var profilecell:ContactTableViewCell?
 
     @IBOutlet weak var searchbar: UISearchBar!
     @IBOutlet var tableview: UITableView!
@@ -163,10 +164,23 @@ extension ViewController:UISearchBarDelegate{
         tableview.reloadData()
     }
 }
-extension ViewController:ContactTableViewDelegate{
+extension ViewController:ContactTableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+   
     func performPhotoView(cell:ContactTableViewCell) {
-        print("I am here \(cell.company.text)")
+        self.profilecell = cell
+       var imagePicker = UIImagePickerController()
+        imagePicker.modalPresentationStyle = UIModalPresentationStyle.currentContext
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true, completion: nil)
+        
     }
-    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var customProfile:UIImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        profilecell!.profile.image = customProfile
+        self.dismiss(animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
 }

@@ -23,22 +23,24 @@ class NetworkHandler{
    
    
     func loadData(){
-        queue.addOperation { [self] in
             if let url = url{
             let request = URLRequest(url: url)
-                for i in 0...50{
-                let task = session.dataTask(with: request) { data, response, error in
-                        guard let data = data else {
-                            return
+                DispatchQueue.global().async { [weak self] in
+                    for i in 0...50{
+                        let task = self!.session.dataTask(with: request) { data, response, error in
+                            guard let data = data else {
+                                return
+                            }
+                         
+                        self!.delegate?.loadData(data:self!.parser.parseJSON(from: data))
                         }
-                     
-                    self.delegate?.loadData(data:self.parser.parseJSON(from: data))
+                    task.resume()
                     }
-                task.resume()
                 }
+               
         }
         }
-    }
+    
        
     func downloadProfileImage(from url:URL?,completionHandler:@escaping (Data) ->Void){
         guard let url = url else {
